@@ -10,16 +10,16 @@
 #include "../../../j7_lab_src/MCAL/DIO/DIO.h"
 
 /*output cols*/
-#define KP_OUTPUT_PIN_R0		DIO_pin_C0
-#define KP_OUTPUT_PIN_R1		DIO_pin_C1
-#define KP_OUTPUT_PIN_R2		DIO_pin_C2
-#define KP_OUTPUT_PIN_R3		DIO_pin_C3
+#define KP_OUTPUT_PIN_R0		DIO_pin_A0
+#define KP_OUTPUT_PIN_R1		DIO_pin_A1
+#define KP_OUTPUT_PIN_R2		DIO_pin_A2
+#define KP_OUTPUT_PIN_R3		DIO_pin_A3
 
 /*input*/
-#define KP_INPUT_PIN_C0		DIO_pin_D0
-#define KP_INPUT_PIN_C1		DIO_pin_D1
-#define KP_INPUT_PIN_C2		DIO_pin_D2
-#define KP_INPUT_PIN_C3		DIO_pin_D3
+#define KP_INPUT_PIN_C0		DIO_pin_A7
+#define KP_INPUT_PIN_C1		DIO_pin_A6
+#define KP_INPUT_PIN_C2		DIO_pin_A5
+#define KP_INPUT_PIN_C3		DIO_pin_A4
 
 
 #endif /* J7_LAB_SRC_HAL_KP_KP_CFG_H_ */

@@ -18,15 +18,15 @@
 #define SevSegmnets_PIN_F           DIO_pin_C6
 #define SevSegmnets_PIN_G           DIO_pin_C7
 #define SevSegmnets_PIN_DP          DIO_pin_C0
-#define SevSegmnets_PIN_COMMON_1    DIO_pin_D0
-#define SevSegmnets_PIN_COMMON_2    DIO_pin_D1
+#define SevSegmnets_PIN_COMMON_1    DIO_pin_D1
+#define SevSegmnets_PIN_COMMON_2    DIO_pin_D0
 
 
 
 /*
  * choose between
- * SevSegments_COMMON_CATHODE
- * SevSegments_COMMON_ANOD
+ * SevSegments_COMMON_CATHODE ==>0
+ * SevSegments_COMMON_ANOD	  ==>1
  */
 #define SevSegments_COMMON_TYPE_1		SevSegments_COMMON_CATHODE
 #define SevSegments_COMMON_TYPE_2		SevSegments_COMMON_CATHODE
