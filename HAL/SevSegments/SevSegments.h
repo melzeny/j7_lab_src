@@ -16,7 +16,7 @@ typedef enum
 
 }SevSegment_num_t;
 void SevSegments_init(void);
-void SevSegments_displayNum(u8 num);
+void SevSegments_displayNum(SevSegment_num_t SevSegmentNum,u8 num);
 void SevSegments_enable(SevSegment_num_t SevSegmentNum);
 void SevSegments_disable(SevSegment_num_t SevSegmentNum);
 

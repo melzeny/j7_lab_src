@@ -8,9 +8,7 @@
 
 void lab_02_SevSegments(void)
 {
-	SevSegments_init();
-	SevSegments_enable();
-	SevSegments_displayNum(5);
+
 
 	while(1);
 
