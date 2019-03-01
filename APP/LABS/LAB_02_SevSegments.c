@@ -19,12 +19,12 @@ void lab_02_SevSegments(void)
 		{
 			SevSegments_enable(SevSegment_1);
 			SevSegments_displayNum(SevSegment_1,PressedNum%10);
-			_delay_ms(1);
+			_delay_us(2);
 			SevSegments_disable(SevSegment_1);
 
 			SevSegments_enable(SevSegment_2);
 			SevSegments_displayNum(SevSegment_2,PressedNum/10);
-			_delay_ms(1);
+			_delay_us(100);
 			SevSegments_disable(SevSegment_2);
 		}
 

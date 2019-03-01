@@ -8,9 +8,9 @@
 #define SevSegments_COMMON_CATHODE			0
 #define SevSegments_COMMON_ANOD				1
 
-#include "../../../j7_lab_src/MCAL/DIO/DIO.h"
-#include "../../../j7_lab_src/HAL/SevSegments/SevSegments_cfg.h"
-#include "../../../j7_lab_src/HAL/SevSegments/SevSegments.h"
+#include "../../MCAL/DIO/DIO.h"
+#include "SevSegments_cfg.h"
+#include "SevSegments.h"
 
 
 #define SEGMENT_ACTIVE_VALUE_1			!SevSegments_COMMON_TYPE_1
