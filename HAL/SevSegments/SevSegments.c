@@ -3,7 +3,7 @@
  * SevSegments.c
  *
  *  Created on: Feb 23, 2019
- *      Author: Muhammad.Elzeiny
+ *      Author: NORAN
  */
 #define SevSegments_COMMON_CATHODE			100
 #define SevSegments_COMMON_ANOD				101
@@ -138,24 +138,37 @@ void SevSegments_displayNum(u8 num)
 		break;
 	}
 }
-void SevSegments_enable(void)
+void SevSegments_enable(SevSegment_num_t SevSegmentNum)
 {
-#if (SevSegments_COMMON_TYPE	== SevSegments_COMMON_CATHODE)
-	DIO_writePinValue(SevSegmnets_PIN_COMMON,DIO_pin_value_low);
+	if(SevSegmentNum == SevSegment_1)
+	{
+#if (SevSegments_COMMON_TYPE_1	== SevSegments_COMMON_CATHODE)
+		DIO_writePinValue(SevSegmnets_PIN_COMMON_1,DIO_pin_value_low);
 
-#elif (SevSegments_COMMON_TYPE	== SevSegments_COMMON_ANOD)
-	DIO_writePinValue(SevSegmnets_PIN_COMMON,DIO_pin_value_high);
+#elif (SevSegments_COMMON_TYPE_1	== SevSegments_COMMON_ANOD)
+		DIO_writePinValue(SevSegmnets_PIN_COMMON_1,DIO_pin_value_high);
 
 #endif
+	}
+	else if(SevSegmentNum == SevSegment_2)
+	{
+#if (SevSegments_COMMON_TYPE_2	== SevSegments_COMMON_CATHODE)
+		DIO_writePinValue(SevSegmnets_PIN_COMMON_2,DIO_pin_value_low);
+
+#elif (SevSegments_COMMON_TYPE_2	== SevSegments_COMMON_ANOD)
+		DIO_writePinValue(SevSegmnets_PIN_COMMON_2,DIO_pin_value_high);
+
+#endif
+	}
 
 }
-void SevSegments_disable(void)
+void SevSegments_disable(SevSegment_num_t SevSegmentNum)
 {
-#if (SevSegments_COMMON_TYPE	== SevSegments_COMMON_CATHODE)
-	DIO_writePinValue(SevSegmnets_PIN_COMMON,DIO_pin_value_high);
+#if (SevSegments_COMMON_TYPE_1	== SevSegments_COMMON_CATHODE)
+	DIO_writePinValue(SevSegmnets_PIN_COMMON_1,DIO_pin_value_high);
 
-#elif (SevSegments_COMMON_TYPE	== SevSegments_COMMON_ANOD)
-	DIO_writePinValue(SevSegmnets_PIN_COMMON,DIO_pin_value_low);
+#elif (SevSegments_COMMON_TYPE_1	== SevSegments_COMMON_ANOD)
+	DIO_writePinValue(SevSegmnets_PIN_COMMON_1,DIO_pin_value_low);
 
 #endif
 
