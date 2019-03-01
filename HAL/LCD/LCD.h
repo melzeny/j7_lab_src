@@ -8,6 +8,7 @@
 #ifndef J7_LAB_SRC_HAL_LCD_LCD_H_
 #define J7_LAB_SRC_HAL_LCD_LCD_H_
 
+#define TEST		012
 
 
 #endif /* J7_LAB_SRC_HAL_LCD_LCD_H_ */
