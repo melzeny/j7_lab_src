@@ -11,14 +11,14 @@
 
 typedef enum
 {
-	SevSegment_1,
-	SevSegment_2
+	BcdSevSegment_1,
+	BcdSevSegment_2
 
-}SevSegment_num_t;
+}BcdSevSegment_num_t;
 void BcdSevSegments_init(void);
 void BcdSevSegments_displayNum(u8 num);
-void BcdSevSegments_enable(SevSegment_num_t SevSegmentNum);
-void BcdSevSegments_disable(SevSegment_num_t SevSegmentNum);
+void BcdSevSegments_enable(BcdSevSegment_num_t SevSegmentNum);
+void BcdSevSegments_disable(BcdSevSegment_num_t SevSegmentNum);
 
 
 #endif /* J7_LAB_SRC_HAL_SEVSEGMENTS_SEVSEGMENTS_H_ */

@@ -4,14 +4,16 @@
  *  Created on: Feb 23, 2019
  *      Author: Muhammad.Elzeiny
  */
-#include "../../HAL/SevSegments/SevSegments.h"
 #include "../../HAL/KP/KP.h"
+#include "../../HAL/SevSegments/SevSegments.h"
+
 #include <avr/delay.h>
 void lab_02_SevSegments(void)
 {
 	u8 PressedNum =-1;
-	SevSegments_init();
 	KP_init();
+	SevSegments_init();
+
 	while(1)
 	{
 		PressedNum = KP_getPressedButton();
