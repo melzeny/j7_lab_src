@@ -10,16 +10,16 @@
 
 /* choose from DIO pins*/
 
-#define SevSegmnets_PIN_A			DIO_pin_C1
-#define SevSegmnets_PIN_B			DIO_pin_C2
-#define SevSegmnets_PIN_C			DIO_pin_C3
-#define SevSegmnets_PIN_D           DIO_pin_C4
-#define SevSegmnets_PIN_E           DIO_pin_C5
-#define SevSegmnets_PIN_F           DIO_pin_C6
-#define SevSegmnets_PIN_G           DIO_pin_C7
-#define SevSegmnets_PIN_DP          DIO_pin_C0
-#define SevSegmnets_PIN_COMMON_1    DIO_pin_D1
-#define SevSegmnets_PIN_COMMON_2    DIO_pin_D0
+#define SevSegmnets_PIN_A			DIO_pin_C0
+#define SevSegmnets_PIN_B			DIO_pin_C1
+#define SevSegmnets_PIN_C			DIO_pin_C2
+#define SevSegmnets_PIN_D           DIO_pin_C3
+#define SevSegmnets_PIN_E           DIO_pin_C4
+#define SevSegmnets_PIN_F           DIO_pin_C5
+#define SevSegmnets_PIN_G           DIO_pin_C6
+#define SevSegmnets_PIN_DP          DIO_pin_C7
+#define SevSegmnets_PIN_COMMON_1    DIO_pin_D0
+#define SevSegmnets_PIN_COMMON_2    DIO_pin_D1
 
 
 

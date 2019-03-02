@@ -9,5 +9,4 @@
 #define J7_LAB_SRC_HAL_LCD_LCD_H_
 
 
-
 #endif /* J7_LAB_SRC_HAL_LCD_LCD_H_ */

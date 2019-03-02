@@ -13,7 +13,7 @@
 #define BcdSevSegmnets_PIN_A			DIO_pin_C4
 #define BcdSevSegmnets_PIN_B			DIO_pin_C5
 #define BcdSevSegmnets_PIN_C			DIO_pin_C6
-#define BcdSevSegmnets_PIN_D           DIO_pin_C7
+#define BcdSevSegmnets_PIN_D            DIO_pin_C7
 #define BcdSevSegmnets_PIN_DP			DIO_pin_B0
 
 #define BcdSevSegmnets_PIN_EN_1    		DIO_pin_C2

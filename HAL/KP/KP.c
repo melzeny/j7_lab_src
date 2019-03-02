@@ -10,7 +10,7 @@
 #include "../../../j7_lab_src/HAL/KP/KP_cfg.h"
 #include "../../../j7_lab_src/MCAL/DIO/DIO.h"
 
-static u8 KP_Pressed_Button;
+static u8 KP_Pressed_Button = -1;
 void KP_init(void)
 {
 	DIO_init();
@@ -39,6 +39,8 @@ static void readInputPins(u8 RowActivated)
 	{
 		KP_Pressed_Button = (RowActivated * 4) + 3;
 	}
+
+
 }
 u8 KP_getPressedButton(void)
 {

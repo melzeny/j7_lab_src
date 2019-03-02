@@ -22,7 +22,7 @@ void SevSegments_init(void)
 }
 void SevSegments_displayNum(SevSegment_num_t SevSegmentNum,u8 num)
 {
-	DIO_pin_value_t ActiveValue;
+	DIO_pin_value_t ActiveValue = SEGMENT_ACTIVE_VALUE_1;
 	if(SevSegmentNum == SevSegment_1)
 	{
 		ActiveValue = SEGMENT_ACTIVE_VALUE_1;

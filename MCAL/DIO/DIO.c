@@ -29,16 +29,28 @@ void DIO_writePinValue(DIO_pin_num_t PinNum,DIO_pin_value_t PinValue)
 	switch(PortNum)
 	{
 	case DIO_port_A:
-		ASSIGN_BIT(PORTA,PinNum,PinValue);
+		if(PinValue == DIO_pin_value_high)
+			SET_BIT(PORTA,PinNum);
+		else
+			CLR_BIT(PORTA,PinNum);
 		break;
 	case DIO_port_B:
-		ASSIGN_BIT(PORTB,PinNum,PinValue);
+		if(PinValue == DIO_pin_value_high)
+			SET_BIT(PORTB,PinNum);
+		else
+			CLR_BIT(PORTB,PinNum);
 		break;
 	case DIO_port_C:
-		ASSIGN_BIT(PORTC,PinNum,PinValue);
+		if(PinValue == DIO_pin_value_high)
+			SET_BIT(PORTC,PinNum);
+		else
+			CLR_BIT(PORTC,PinNum);
 		break;
 	case DIO_port_D:
-		ASSIGN_BIT(PORTD,PinNum,PinValue);
+		if(PinValue == DIO_pin_value_high)
+			SET_BIT(PORTD,PinNum);
+		else
+			CLR_BIT(PORTD,PinNum);
 		break;
 
 	}

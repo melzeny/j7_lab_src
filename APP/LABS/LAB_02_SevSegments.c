@@ -4,34 +4,35 @@
  *  Created on: Feb 23, 2019
  *      Author: Muhammad.Elzeiny
  */
+#include "../../MCAL/DIO/DIO.h"
 #include "../../HAL/KP/KP.h"
 #include "../../HAL/SevSegments/SevSegments.h"
 
 #include <avr/delay.h>
 void lab_02_SevSegments(void)
 {
-	u8 PressedNum =-1;
-	KP_init();
+	volatile u8 PressedNum =-1;
 	SevSegments_init();
+	KP_init();
 
 	while(1)
 	{
 		PressedNum = KP_getPressedButton();
-		if(PressedNum != -1)
+		if(PressedNum != (u8)-1)
 		{
+
 			SevSegments_enable(SevSegment_1);
 			SevSegments_displayNum(SevSegment_1,PressedNum%10);
-			_delay_us(2);
+			_delay_ms(5);
 			SevSegments_disable(SevSegment_1);
+
 
 			SevSegments_enable(SevSegment_2);
 			SevSegments_displayNum(SevSegment_2,PressedNum/10);
-			_delay_us(100);
+			_delay_ms(5);
 			SevSegments_disable(SevSegment_2);
 		}
 
 	}
-
-
 }
 

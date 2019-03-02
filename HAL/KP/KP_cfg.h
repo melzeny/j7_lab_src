@@ -16,10 +16,10 @@
 #define KP_OUTPUT_PIN_R3		DIO_pin_A3
 
 /*input*/
-#define KP_INPUT_PIN_C0		DIO_pin_A7
-#define KP_INPUT_PIN_C1		DIO_pin_A6
-#define KP_INPUT_PIN_C2		DIO_pin_A5
-#define KP_INPUT_PIN_C3		DIO_pin_A4
+#define KP_INPUT_PIN_C0			DIO_pin_A4
+#define KP_INPUT_PIN_C1			DIO_pin_A5
+#define KP_INPUT_PIN_C2			DIO_pin_A6
+#define KP_INPUT_PIN_C3			DIO_pin_A7
 
 
 #endif /* J7_LAB_SRC_HAL_KP_KP_CFG_H_ */
