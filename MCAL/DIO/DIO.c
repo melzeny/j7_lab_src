@@ -6,11 +6,11 @@
  */
 #include "../../../j7_lab_src/MCAL/DIO/DIO.h"
 
-#include "../../../j7_lab_src/LIB/BIT_MATH.h"
-#include "../../../j7_lab_src/MCAL/DIO/DIO_cfg.h"
-#include "../../../j7_lab_src/MCAL/DIO/DIO_reg.h"
-#include "../../../j7_lab_src/LIB/BIT_MATH.h"
-#include "../../../j7_lab_src/LIB/STD_TYPES.h"
+#include "../../LIB/BIT_MATH.h"
+#include "../../MCAL/DIO/DIO_cfg.h"
+#include "../../MCAL/DIO/DIO_reg.h"
+#include "../../LIB/BIT_MATH.h"
+#include "../../LIB/STD_TYPES.h"
 
 #define DIO_PORT_SIZE		8
 
