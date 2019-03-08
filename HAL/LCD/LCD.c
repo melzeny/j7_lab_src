@@ -30,22 +30,22 @@ void LCD_init(void)
 	 * */
 	LCD_writeCmd(0x38);
 	_delay_us(100);
-	LCD_writeCmd(0x0E);
-	_delay_us(100);
-	LCD_writeCmd(0x01);
-	_delay_ms(2);
 #elif LCD_MODE_SELECTOR	== LCD_MODE_4_PIN
 
 	LCD_writeCmd(0x33);
 	_delay_us(100);
 	LCD_writeCmd(0x32);
 	_delay_us(100);
-	LCD_writeCmd(0x28);
+	LCD_writeCmd(0x28); /*init 5*7 matrix in 4-pin mode*/
 	_delay_ms(2);
 
 #else
-#warning FAULT IN LCD CONFIGURATION
+#warning WRONG LCD CONFIGURATION
 #endif
+	LCD_writeCmd(LCD_CMD_DISPLAY_ON); /*display on*/
+	_delay_us(100);
+	LCD_writeCmd(LCD_CMD_CLEAR);	/*clear LCD */
+	_delay_ms(2);
 
 }
 void LCD_writeChar(u8 Data)
@@ -58,10 +58,12 @@ void LCD_writeChar(u8 Data)
 	DIO_writePinValue(LCD_PIN_RS,DIO_pin_value_high);
 
 	/*write on data pins*/
+#if LCD_MODE_SELECTOR == LCD_MODE_8_PIN
 	DIO_writePinValue(LCD_PIN_D0,GET_BIT(Data,0));
 	DIO_writePinValue(LCD_PIN_D1,GET_BIT(Data,1));
 	DIO_writePinValue(LCD_PIN_D2,GET_BIT(Data,2));
 	DIO_writePinValue(LCD_PIN_D3,GET_BIT(Data,3));
+#endif
 	DIO_writePinValue(LCD_PIN_D4,GET_BIT(Data,4));
 	DIO_writePinValue(LCD_PIN_D5,GET_BIT(Data,5));
 	DIO_writePinValue(LCD_PIN_D6,GET_BIT(Data,6));
@@ -71,6 +73,18 @@ void LCD_writeChar(u8 Data)
 	DIO_writePinValue(LCD_PIN_E,DIO_pin_value_high);
 	_delay_us(0.450);
 	DIO_writePinValue(LCD_PIN_E,DIO_pin_value_low);
+#if	LCD_MODE_SELECTOR == LCD_MODE_4_PIN
+	DIO_writePinValue(LCD_PIN_D4,GET_BIT(Data,0));
+	DIO_writePinValue(LCD_PIN_D5,GET_BIT(Data,1));
+	DIO_writePinValue(LCD_PIN_D6,GET_BIT(Data,2));
+	DIO_writePinValue(LCD_PIN_D7,GET_BIT(Data,3));
+
+	/*Enable pulse (>= 450ns) */
+	DIO_writePinValue(LCD_PIN_E,DIO_pin_value_high);
+	_delay_us(0.450);
+	DIO_writePinValue(LCD_PIN_E,DIO_pin_value_low);
+
+#endif
 
 }
 void LCD_writeCmd(u8 Cmd)
@@ -82,10 +96,12 @@ void LCD_writeCmd(u8 Cmd)
 	DIO_writePinValue(LCD_PIN_RS,DIO_pin_value_low);
 
 	/*write on data pins*/
+#if LCD_MODE_SELECTOR == LCD_MODE_8_PIN
 	DIO_writePinValue(LCD_PIN_D0,GET_BIT(Cmd,0));
 	DIO_writePinValue(LCD_PIN_D1,GET_BIT(Cmd,1));
 	DIO_writePinValue(LCD_PIN_D2,GET_BIT(Cmd,2));
 	DIO_writePinValue(LCD_PIN_D3,GET_BIT(Cmd,3));
+#endif
 	DIO_writePinValue(LCD_PIN_D4,GET_BIT(Cmd,4));
 	DIO_writePinValue(LCD_PIN_D5,GET_BIT(Cmd,5));
 	DIO_writePinValue(LCD_PIN_D6,GET_BIT(Cmd,6));
@@ -95,6 +111,18 @@ void LCD_writeCmd(u8 Cmd)
 	DIO_writePinValue(LCD_PIN_E,DIO_pin_value_high);
 	_delay_us(0.450);
 	DIO_writePinValue(LCD_PIN_E,DIO_pin_value_low);
+#if	LCD_MODE_SELECTOR == LCD_MODE_4_PIN
+	DIO_writePinValue(LCD_PIN_D4,GET_BIT(Cmd,0));
+	DIO_writePinValue(LCD_PIN_D5,GET_BIT(Cmd,1));
+	DIO_writePinValue(LCD_PIN_D6,GET_BIT(Cmd,2));
+	DIO_writePinValue(LCD_PIN_D7,GET_BIT(Cmd,3));
+
+	/*Enable pulse (>= 450ns) */
+	DIO_writePinValue(LCD_PIN_E,DIO_pin_value_high);
+	_delay_us(0.450);
+	DIO_writePinValue(LCD_PIN_E,DIO_pin_value_low);
+
+#endif
 
 }
 
