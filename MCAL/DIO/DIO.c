@@ -2,15 +2,16 @@
  * DIO.c
  *
  *  Created on: Feb 16, 2019
- *      Author: Zahran
+ *      Author: Mohammed Zahran
  */
-#include "../../../j7_lab_src/MCAL/DIO/DIO.h"
+#define DIO_PIN_INPUT			0
+#define DIO_PIN_OUTPUT			1
 
 #include "../../LIB/BIT_MATH.h"
-#include "../../MCAL/DIO/DIO_cfg.h"
-#include "../../MCAL/DIO/DIO_reg.h"
-#include "../../LIB/BIT_MATH.h"
 #include "../../LIB/STD_TYPES.h"
+#include "DIO_reg.h"
+#include "DIO_cfg.h"
+#include "DIO.h"
 
 #define DIO_PORT_SIZE		8
 

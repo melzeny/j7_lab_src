@@ -3,7 +3,7 @@
  * SevSegments.c
  *
  *  Created on: Feb 23, 2019
- *      Author: NORAN
+ *      Author: Noran Raafat
  */
 #define SevSegments_COMMON_CATHODE			0
 #define SevSegments_COMMON_ANOD				1

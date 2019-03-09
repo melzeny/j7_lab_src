@@ -14,6 +14,7 @@
 #define LCD_CMD_CLEAR		(u8)0x01
 #define LCD_CMD_DISPLAY_ON	(u8)0x0E
 
+
 /*APIs*/
 void LCD_init(void);
 void LCD_writeCmd(u8 Cmd);

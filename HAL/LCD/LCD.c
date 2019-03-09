@@ -148,7 +148,7 @@ void LCD_storeCustomChar(u8* CustomChar,u8 CGRAM_MatrixIndex)
 	LCD_writeCmd(0b01000000 | addr );
 
 	/*DATA: write custom char*/
-	for(i=0;i<7;i++)
+	for(i=0;i<8;i++)
 	{
 		/*{2,1,5,4,6,3,3,4}*/
 		LCD_writeChar(CustomChar[i]);
@@ -166,8 +166,7 @@ void LCD_displayCustomChar(u8 CGRAM_MatrixIndex,u8 row,u8 col)
 	u8 DDRAM_Addr = (row*0x40) + col;
 	LCD_writeCmd(0b10000000 | DDRAM_Addr);
 
-	u8 CGRAM_Addr = CGRAM_MatrixIndex * 8;
-	LCD_writeChar(CGRAM_Addr);
+	LCD_writeChar(CGRAM_MatrixIndex);
 
 }
 void LCD_writeString(u8 * str,u8 row,u8 col)
