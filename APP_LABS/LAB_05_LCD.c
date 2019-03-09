@@ -8,8 +8,10 @@
 
 void lab_05_lcd(void)
 {
+	u8 customChar[8]={0,0,31,5,7,0,0,0};
 	LCD_init();
-	LCD_writeString("AHMED",1,4);
+	LCD_storeCustomChar(customChar,0);
+	LCD_displayCustomChar(0,0,5);
 	while(1)
 	{
 

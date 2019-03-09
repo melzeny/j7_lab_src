@@ -128,32 +128,46 @@ void LCD_writeCmd(u8 Cmd)
 
 #endif
 
+	if(Cmd == LCD_CMD_CLEAR)
+	{
+		lastUsed_DDRAM_Address =0;
+	}
 }
 /*=====================================
  * CGRAM_MatrixOffset [0-7]
  *
  *
  =====================================*/
-void LCD_storeCustomChar(u8* CustomChar,u8 CGRAM_MatrixOffset)
+void LCD_storeCustomChar(u8* CustomChar,u8 CGRAM_MatrixIndex)
 {
+	u8 i;
 	/*CMD: set CGRAM Addr
 	 * AC point to CGRAM
 	 * */
+	u8 addr = CGRAM_MatrixIndex * 8;
+	LCD_writeCmd(0b01000000 | addr );
 
 	/*DATA: write custom char*/
-
+	for(i=0;i<7;i++)
+	{
+		/*{2,1,5,4,6,3,3,4}*/
+		LCD_writeChar(CustomChar[i]);
+	}
 
 	/*
 	 * make AC pointing to LastUsed_DDRAM_Address
 	 * */
+	LCD_writeCmd(0b10000000 | lastUsed_DDRAM_Address );
 
 
 }
-void LCD_displayCustomChar(u8 CGRAM_MatrixIndex)
+void LCD_displayCustomChar(u8 CGRAM_MatrixIndex,u8 row,u8 col)
 {
-	u8 addr = CGRAM_MatrixIndex * 8;
+	u8 DDRAM_Addr = (row*0x40) + col;
+	LCD_writeCmd(0b10000000 | DDRAM_Addr);
 
-	LCD_writeChar(addr);
+	u8 CGRAM_Addr = CGRAM_MatrixIndex * 8;
+	LCD_writeChar(CGRAM_Addr);
 
 }
 void LCD_writeString(u8 * str,u8 row,u8 col)
