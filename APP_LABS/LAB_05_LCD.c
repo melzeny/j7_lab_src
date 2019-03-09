@@ -9,7 +9,7 @@
 void lab_05_lcd(void)
 {
 	LCD_init();
-	LCD_writeString("AHMED");
+	LCD_writeString("AHMED",1,4);
 	while(1)
 	{
 

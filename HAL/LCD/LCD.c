@@ -2,7 +2,7 @@
  * LCD.c
  *
  *  Created on: Mar 8, 2019
- *      Author: Muhammad.Elzeiny
+ *      Author: Mohammed Mahdy - Mohammed Zharan -Mostafa Yasser Mahmoud
  */
 #define  LCD_MODE_4_PIN		1
 #define  LCD_MODE_8_PIN		2
@@ -13,6 +13,10 @@
 
 #include "LCD_cfg.h"
 #include "LCD.h"
+
+static void LCD_writeChar(u8 Data);
+
+static u8 lastUsed_DDRAM_Address = 0;
 
 void LCD_init(void)
 {
@@ -48,7 +52,7 @@ void LCD_init(void)
 	_delay_ms(2);
 
 }
-void LCD_writeChar(u8 Data)
+static void LCD_writeChar(u8 Data)
 {
 
 	/*RW = low*/
@@ -125,9 +129,38 @@ void LCD_writeCmd(u8 Cmd)
 #endif
 
 }
-
-void LCD_writeString(u8 * str)
+/*=====================================
+ * CGRAM_MatrixOffset [0-7]
+ *
+ *
+ =====================================*/
+void LCD_storeCustomChar(u8* CustomChar,u8 CGRAM_MatrixOffset)
 {
+	/*CMD: set CGRAM Addr
+	 * AC point to CGRAM
+	 * */
+
+	/*DATA: write custom char*/
+
+
+	/*
+	 * make AC pointing to LastUsed_DDRAM_Address
+	 * */
+
+
+}
+void LCD_displayCustomChar(u8 CGRAM_MatrixIndex)
+{
+	u8 addr = CGRAM_MatrixIndex * 8;
+
+	LCD_writeChar(addr);
+
+}
+void LCD_writeString(u8 * str,u8 row,u8 col)
+{
+	u8 addr = (row*0x40) + col;
+
+	LCD_writeCmd(0b10000000 | addr);
 	u8 i =0;
 	while(str[i] != '\0')
 	{
@@ -135,6 +168,7 @@ void LCD_writeString(u8 * str)
 
 		i++;
 	}
+	lastUsed_DDRAM_Address = addr + i;
 }
 
 

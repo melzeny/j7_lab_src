@@ -16,8 +16,7 @@
 
 /*APIs*/
 void LCD_init(void);
-void LCD_writeChar(u8 Data);
 void LCD_writeCmd(u8 Cmd);
-void LCD_writeString(u8 * str);
+void LCD_writeString(u8 * str,u8 row,u8 col);
 
 #endif /* J7_LAB_SRC_HAL_LCD_LCD_H_ */
