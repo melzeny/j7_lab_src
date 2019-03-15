@@ -8,16 +8,13 @@
 #ifndef TIMER0_H_
 #define TIMER0_H_
 
-#if TIMER0_MODE_SELECTOR == TIMER0_MODE_CTC
-#define TIMER0_ISR			void __vector_10 (void) __attribute__ ((signal,used));\
-							void __vector_10 (void)
-#elif TIMER0_MODE_SELECTOR == TIMER0_MODE_NORMAL
-#define TIMER0_ISR			void __vector_11 (void) __attribute__ ((signal,used));\
-							void __vector_11 (void)
-#endif
+#define TIMER0_CTC_ISR			void __vector_10 (void) __attribute__ ((signal,used));\
+								void __vector_10 (void)
+#define TIMER0_NORMAL_ISR		void __vector_11 (void) __attribute__ ((signal,used));\
+								void __vector_11 (void)
 
 void TIMER0_init(void);
 void TIMER0_enInterrupt(void);
 void TIMER0_diInterrupt(void);
-void TIMER0_setNoOfSteps(void);
+void TIMER0_setNoOfSteps(u8 StepsNo);
 #endif /* TIMER0_H_ */
