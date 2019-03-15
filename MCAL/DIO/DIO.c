@@ -11,6 +11,7 @@
 #include "../../LIB/STD_TYPES.h"
 #include "DIO_reg.h"
 #include "DIO_cfg.h"
+#include "DIO_lcfg.h"
 #include "DIO.h"
 
 #define DIO_PORT_SIZE		8
