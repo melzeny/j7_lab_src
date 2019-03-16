@@ -10,6 +10,7 @@
 
 #include "../LIB/STD_TYPES.h"
 #include "../MCAL/TIMER0/TIMER0.h"
+#include "../MCAL/GLOBAL_INTERRUPT/GI.h"
 #include "SCHEDULER_cfg.h"
 #include "SCHEDULER.h"
 
@@ -18,7 +19,7 @@ static u8 CurrentNumOfTasks =0;
 typedef struct
 {
 	ptr2func_t str_taskPtr;
-	u8 str_periodicity;
+	u32 str_periodicity;
 
 }Task_t;
 Task_t TasksArr[SCHEDULER_MAX_NO_OF_TASKS];
