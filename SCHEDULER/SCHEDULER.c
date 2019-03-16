@@ -31,7 +31,7 @@ void SCHEDULER_init(void)
 	TIMER0_init();
 
 }
-ret_status_t SCHEDULER_createTask(ptr2func_t ptr2task,u8 periodicity)
+ret_status_t SCHEDULER_createTask(ptr2func_t ptr2task,u32 periodicity)
 {
 	ret_status_t Ret_status;
 	if(CurrentNumOfTasks < SCHEDULER_MAX_NO_OF_TASKS)
@@ -69,6 +69,7 @@ TIMER0_NORMAL_ISR
 {
 	u8 i;
 	static u32 TickCounter = 0;
+	TIMER0_setNoOfSteps(78);
 	/*loop */
 	for(i=0;i<CurrentNumOfTasks;i++)
 	{
