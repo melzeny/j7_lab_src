@@ -12,13 +12,13 @@
  * write number of steps to count in range [0-255]
  *
  * */
-#define TIMER0_NO_OF_PETER_STEPS		(u8)156
+#define TIMER0_NO_OF_PETER_STEPS		(u8)78
 /*
  * choose between
  * TIMER0_MODE_NORMAL_MSK
  * TIMER0_MODE_CTC_MSK
  */
-#define TIMER0_MODE_SELECTOR_MSK			TIMER0_MODE_NORMAL_MSK
+#define TIMER0_MODE_SELECTOR_MSK			TIMER0_MODE_CTC_MSK
 
 /*
  * choose between
