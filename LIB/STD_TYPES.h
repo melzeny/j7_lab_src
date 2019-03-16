@@ -18,4 +18,10 @@ typedef signed long int s32;
 typedef float f32;
 typedef double f64;
 
+typedef enum
+{
+	OK,
+	NOT_OK
+}ret_status_t;
+typedef void(*ptr2func_t)(void);
 #endif 
