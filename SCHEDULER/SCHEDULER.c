@@ -1,3 +1,4 @@
+
 /*
  * SCHEDULER.c
  *
@@ -9,7 +10,7 @@
 #define SCHEDULER_MODE_TIMER_NORMAL			2
 
 #include "../LIB/STD_TYPES.h"
-#include "../MCAL/TIMER0/TIMER0.h"
+#include "../MCAL/TIMER_0/TIMER0.h"
 #include "../MCAL/GLOBAL_INTERRUPT/GI.h"
 #include "SCHEDULER_cfg.h"
 #include "SCHEDULER.h"

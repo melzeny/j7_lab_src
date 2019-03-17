@@ -59,7 +59,7 @@ void DIO_writePinValue(DIO_pin_num_t PinNum,DIO_pin_value_t PinValue)
 }
 DIO_pin_value_t DIO_readPinValue(DIO_pin_num_t PinNum)
 {
-	DIO_pin_value_t ret;
+	DIO_pin_value_t ret = DIO_pin_value_low;
 	/*read value from PINx register*/
 	DIO_port_num_t PortNum = PinNum / DIO_PORT_SIZE;
 	PinNum %= DIO_PORT_SIZE;
@@ -102,7 +102,7 @@ void DIO_writePortValue(DIO_port_num_t PortNum,u8 value)
 }
 u8 DIO_readPortValue(DIO_port_num_t PortNum)
 {
-	u8 ret;
+	u8 ret = 0;
 	switch(PortNum)
 	{
 	case DIO_port_A:

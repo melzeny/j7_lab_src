@@ -5,7 +5,7 @@
  *      Author: Muhammad.Elzeiny
  */
 #include "../MCAL/DIO/DIO.h"
-#include "../MCAL/TIMER0/TIMER0.h"
+#include "../MCAL/TIMER_0/TIMER0.h"
 #include "../MCAL/GLOBAL_INTERRUPT/GI.h"
 void lab_06_timer(void)
 {
