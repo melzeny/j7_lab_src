@@ -6,7 +6,7 @@
  */
 #include "../MCAL/EXTI/EXTI.h"
 
-EXTI_ISR
+EXTI_0_ISR
 {
 
 

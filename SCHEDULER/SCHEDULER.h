@@ -11,7 +11,7 @@
 #include "../LIB/STD_TYPES.h"
 
 void SCHEDULER_init(void);
-ret_status_t SCHEDULER_createTask(ptr2func_t ptr2task,u32 periodicity);
+ret_status_t SCHEDULER_createTask(p2func_t ptr2task,u32 periodicity);
 
 
 #endif /* J7_LAB_SRC_SCHEDULER_SCHEDULER_H_ */

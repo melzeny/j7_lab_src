@@ -62,7 +62,6 @@ void TIMER0_diInterrupt(void)
 #elif TIMER0_MODE_SELECTOR_MSK == TIMER0_MODE_NORMAL_MSK
 	CLR_BIT(TIMSK,0);
 #endif
-
 }
 void TIMER0_setNoOfSteps(u8 stepsNo)
 {
@@ -72,4 +71,9 @@ void TIMER0_setNoOfSteps(u8 stepsNo)
 #elif TIMER0_MODE_SELECTOR_MSK == TIMER0_MODE_NORMAL_MSK
 	TCNT0 = 255-stepsNo;
 #endif
+}
+
+u8 TIMER0_getNoOfSteps(void)
+{
+	return TCNT0;
 }

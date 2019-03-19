@@ -17,7 +17,7 @@ void task_2(void)
 	DIO_togglePin(DIO_pin_A1);
 
 }
-void lab_06_secheduler(void)
+void lab_07_Scheduler(void)
 {
 	DIO_init();
 	SCHEDULER_init();

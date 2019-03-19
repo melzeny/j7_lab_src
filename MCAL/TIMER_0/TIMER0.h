@@ -17,4 +17,6 @@ void TIMER0_init(void);
 void TIMER0_enInterrupt(void);
 void TIMER0_diInterrupt(void);
 void TIMER0_setNoOfSteps(u8 StepsNo);
+u8 TIMER0_getNoOfSteps(void);
+
 #endif /* TIMER0_H_ */

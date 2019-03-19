@@ -23,5 +23,10 @@ typedef enum
 	OK,
 	NOT_OK
 }ret_status_t;
-typedef void(*ptr2func_t)(void);
+typedef enum
+{
+	false =0,
+	true
+}boolean_t;
+typedef void(*p2func_t)(void);
 #endif 
