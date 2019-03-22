@@ -21,8 +21,8 @@ void lab_07_Scheduler(void)
 {
 	DIO_init();
 	SCHEDULER_init();
-	SCHEDULER_createTask(task_1,1);
-	SCHEDULER_createTask(task_2,2);
+	SCHEDULER_createTask(task_1,1,0);
+	SCHEDULER_createTask(task_2,2,0);
 	while(1)
 	{
 

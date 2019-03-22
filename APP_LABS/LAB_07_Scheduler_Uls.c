@@ -18,7 +18,7 @@ void UlsApp_task(void)
 }
 void lab_07_UlsApp(void)
 {
-	SCHEDULER_createTask(UlsApp_task,100);
+	SCHEDULER_createTask(UlsApp_task,100,0);
 
 	LCD_init();
 	ULS_init();

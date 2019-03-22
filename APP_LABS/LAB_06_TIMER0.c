@@ -24,7 +24,7 @@ void lab_06_timer(void)
 TIMER0_NORMAL_ISR
 {
 	static u8 counter =0;
-	TIMER0_setNoOfSteps(156);
+	TIMER0_setCounterSteps(156);
 	if(counter >= 50)
 	{
 		DIO_togglePin(DIO_pin_A0);

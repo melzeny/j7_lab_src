@@ -3,7 +3,7 @@
  * SCHEDULER.c
  *
  *  Created on: Mar 16, 2019
- *      Author: Muhammad.Elzeiny
+ *      Author: Mohammad.Zharan - Noran Raafat
  */
 
 #include "../LIB/STD_TYPES.h"
@@ -18,6 +18,7 @@ typedef struct
 {
 	p2func_t str_taskPtr;
 	u32 str_periodicity;
+	u32 str_first_delay;
 
 }Task_t;
 Task_t TasksArr[SCHEDULER_MAX_NO_OF_TASKS];
@@ -29,13 +30,16 @@ void SCHEDULER_init(void)
 	TIMER0_init();
 
 }
-ret_status_t SCHEDULER_createTask(p2func_t ptr2task,u32 periodicity)
+ret_status_t SCHEDULER_createTask(p2func_t ptr2task,
+		u32 periodicity,
+		u32 FirstDelay)
 {
 	ret_status_t Ret_status;
 	if(CurrentNumOfTasks < SCHEDULER_MAX_NO_OF_TASKS)
 	{
 		TasksArr[CurrentNumOfTasks].str_taskPtr=ptr2task;
 		TasksArr[CurrentNumOfTasks].str_periodicity=periodicity;
+		TasksArr[CurrentNumOfTasks].str_first_delay = FirstDelay;
 		CurrentNumOfTasks++;
 		Ret_status = OK;
 	}
@@ -47,20 +51,22 @@ ret_status_t SCHEDULER_createTask(p2func_t ptr2task,u32 periodicity)
 }
 
 
-SCHEDULER_TIMER_ISR
+TIMER0_CTC_ISR
 {
 	u8 i;
-	static u32 TickCounter = 0;
-	TIMER0_setNoOfSteps(SCHEDULER_TIMER_STEPS); /*not required in CTC mode*/
 	/*loop */
 	for(i=0;i<CurrentNumOfTasks;i++)
 	{
 		/*check if TickCounter multiple of periodicity  */
-		if((TickCounter % TasksArr[i].str_periodicity) == 0)
-		{
-			TasksArr[i].str_taskPtr();
-		}
+			if(TasksArr[i].str_first_delay == 0)
+			{
+				TasksArr[i].str_first_delay = TasksArr[i].str_periodicity;
+				TasksArr[i].str_taskPtr();
+				TasksArr[i].str_first_delay--;
+			}
+			else
+			{
+				TasksArr[i].str_first_delay--;
+			}
 	}
-	TickCounter++;
-
 }

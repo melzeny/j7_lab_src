@@ -36,7 +36,7 @@ void ULS_init(void)
 
 	TIMER2_enInterrupt();
 
-	SCHEDULER_createTask(ULS_task,ULS_TASK_PERIODICITY);
+	SCHEDULER_createTask(ULS_task,ULS_TASK_PERIODICITY,0);
 	TIMER2_init();
 	SCHEDULER_init();
 }
@@ -62,7 +62,7 @@ ULS_TIMER_ISR
 		CounterLoopNo++;
 	}
 }
-
+#if 0
 #if ULS_ECHO_EXTI_PIN == EXTI_int1
 EXTI_1_ISR
 #elif ULS_ECHO_EXTI_PIN == EXTI_int2
@@ -85,4 +85,4 @@ EXTI_0_ISR
 	}
 
 }
-
+#endif

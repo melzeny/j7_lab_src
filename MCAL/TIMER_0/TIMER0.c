@@ -36,12 +36,8 @@ void TIMER0_init(void)
 	/*set output status on OC0*/
 	TCCR0 |= TIMER0_OC0_PIN_OUTPUT_MSK;
 
-	/*set steps to count*/
-#if TIMER0_MODE_SELECTOR_MSK == TIMER0_MODE_CTC_MSK
-	OCR0 = TIMER0_NO_OF_PETER_STEPS;
-#elif TIMER0_MODE_SELECTOR_MSK == TIMER0_MODE_NORMAL_MSK
-	TCNT0 = 255-TIMER0_NO_OF_PETER_STEPS;
-#endif
+	OCR0 = TIMER0_STEPS_COMPARED_VALUE;
+
 	/*select Prescaler*/
 	TCCR0 |= TIMER0_PRESCALER_SELECTOR_MSK;
 
@@ -63,17 +59,17 @@ void TIMER0_diInterrupt(void)
 	CLR_BIT(TIMSK,0);
 #endif
 }
-void TIMER0_setNoOfSteps(u8 stepsNo)
+void TIMER0_setCounterSteps(u8 stepsNo)
 {
-	/*set steps to count*/
-#if TIMER0_MODE_SELECTOR_MSK == TIMER0_MODE_CTC_MSK
-	OCR0 = stepsNo;
-#elif TIMER0_MODE_SELECTOR_MSK == TIMER0_MODE_NORMAL_MSK
-	TCNT0 = 255-stepsNo;
-#endif
+	TCNT0 = stepsNo;
 }
 
-u8 TIMER0_getNoOfSteps(void)
+u8 TIMER0_getCurrentCounterSteps(void)
 {
 	return TCNT0;
+}
+
+void TIMER0_setComparedValue(u8 ComparedValue)
+{
+	OCR0 = ComparedValue;
 }
