@@ -15,10 +15,16 @@ typedef enum
 	EXTI_int2
 }EXTI_num_t;
 
+typedef enum
+{
+	EXTI_RisingEdge,
+	EXTI_FallingEdge
+}EXTI_edge_t;
 
 void EXTI_init(EXTI_num_t ExtiNum );
 void EXTI_enInterrupt(EXTI_num_t ExtiNum);
 void EXTI_diInterrupt(EXTI_num_t ExtiNum);
+void EXTI_setEdge(EXTI_num_t ExtiNum ,EXTI_edge_t Edge);
 
 #define EXTI_0_ISR	void __vector_1 (void) __attribute__ ((signal,used));\
 					void __vector_1 (void)

@@ -106,4 +106,44 @@ void EXTI_diInterrupt(EXTI_num_t ExtiNum)
 		break;
 	}
 }
+void EXTI_setEdge(EXTI_num_t ExtiNum ,EXTI_edge_t Edge)
+{
+	if(Edge == EXTI_RisingEdge)
+	{
+		switch(ExtiNum)
+		{
+		case EXTI_int0:
+			SET_BIT(MCUCR,0);
+			SET_BIT(MCUCR,1);
+			break;
+		case EXTI_int1:
+			SET_BIT(MCUCR,2);
+			SET_BIT(MCUCR,3);
+			break;
+		case EXTI_int2:
+			SET_BIT(MCUCSR,6);
+			break;
+		}
+
+	}
+	else
+	{
+		switch(ExtiNum)
+		{
+		case EXTI_int0:
+			CLR_BIT(MCUCR,0);
+			SET_BIT(MCUCR,1);
+			break;
+		case EXTI_int1:
+			CLR_BIT(MCUCR,2);
+			SET_BIT(MCUCR,3);
+			break;
+		case EXTI_int2:
+			CLR_BIT(MCUCSR,6);
+			break;
+		}
+
+	}
+
+}
 
