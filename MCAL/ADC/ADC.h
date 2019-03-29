@@ -18,7 +18,8 @@ typedef enum
 	ADC_ch4,
 	ADC_ch5,
 	ADC_ch6,
-	ADC_ch7
+	ADC_ch7,
+	ADC_MAX_NO_OF_CH
 }ADC_ch_t;
 
 void ADC_init(void);

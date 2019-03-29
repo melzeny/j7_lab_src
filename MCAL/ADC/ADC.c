@@ -2,15 +2,16 @@
  * ADC.c
  *
  *  Created on: Mar 29, 2019
- *      Author: Muhammad.Elzeiny
+ *      Author: Yasmin Mahdy
  */
-#define ADC_Vref_PIN_clr_msk			0b00111111
-#define ADC_Vref_Aref_msk     			0b00000000
-#define ADC_Vref_AVCC_msk         		0b01000000
-#define ADC_Vref_INTERNAL_2_56_msk		0b11000000
+#define ADC_Vref_PIN_clr_msk								0b00111111
+#define ADC_Vref_Aref_msk     								0b00000000
+#define ADC_Vref_AVCC_msk         							0b01000000
+#define ADC_Vref_INTERNAL_2_56_msk							0b11000000
 
-#define ADC_MODE_AUTO_TRIGGER     		0
-#define ADC_MODE_SINGLE_CONVERSION		1
+#define ADC_MODE_SELECTOR_clr_msk							0b11011111
+#define ADC_MODE_AUTO_TRIGGER     							0b00100000
+#define ADC_MODE_SINGLE_CONVERSION							0b00000000
 
 #define ADC_PRESCALER_clr_msk								0b11111000
 #define ADC_PRESCALER_msk_2  								0b00000001
@@ -37,31 +38,61 @@
 #include "ADC_cfg.h"
 #include "ADC.h"
 
+static u16 LastConvertedVal[ADC_MAX_NO_OF_CH];
 void ADC_init(void)
 {
+	/*set Vref*/
+	ADMUX &= ADC_Vref_PIN_clr_msk;
+	ADMUX |= ADC_Vref_PIN_msk;
+
+	/*select mode*/
+	ADCSRA &= ADC_MODE_SELECTOR_clr_msk;
+	ADCSRA |= ADC_MODE_SELECTOR;
+#if ADC_MODE_SELECTOR == ADC_MODE_AUTO_TRIGGER
+	/* trigger source*/
+	SFIOR &= ADC_SOURCE_TRIGGER_clr_msk;
+	SFIOR |= ADC_SOURCE_TRIGGER_msk;
+#endif
+
+	/*ADC enable*/
+	SET_BIT(ADCSRA,7);
+
+	/*ADC prescaler*/
+	ADCSRA &= ADC_PRESCALER_clr_msk;
+	ADCSRA |= ADC_PRESCALER_msk;
 
 }
 void ADC_startConversion(ADC_ch_t ch)
 {
+	if(ch < ADC_MAX_NO_OF_CH)
+	{
+		/* choose ch*/
+		ADMUX &= 0b11100000;
+		ADMUX |= ch;
 
+		/*start conversion*/
+		SET_BIT(ADCSRA,6);
+	}
 }
 u16 ADC_getLastConvertedVal(ADC_ch_t ch)
 {
-
+	return LastConvertedVal[ch];
 }
 void ADC_enInterrupt(void)
 {
-
+	SET_BIT(ADCSRA,3);
 }
 void ADC_diInterrupt(void)
 {
-
+	CLR_BIT(ADCSRA,3);
 }
 
 
 
-void _vector_16(void) __attribute__((signal,used));
-void _vector_16(void)
+void __vector_16(void) __attribute__((signal,used));
+void __vector_16(void)
 {
 	/*ADC ISR*/
+	ADC_ch_t CurrentChannle = 0b00011111 & ADMUX;
+	LastConvertedVal[CurrentChannle] = ADCLH;
 }
