@@ -24,7 +24,7 @@ typedef enum
 
 void ADC_init(void);
 void ADC_startConversion(ADC_ch_t ch);
-u16 ADC_getLastConvertedVal(ADC_ch_t ch);
+u16 ADC_getVolatage_mv(ADC_ch_t ch);
 void ADC_enInterrupt(void);
 void ADC_diInterrupt(void);
 

@@ -74,7 +74,7 @@ void ADC_startConversion(ADC_ch_t ch)
 		SET_BIT(ADCSRA,6);
 	}
 }
-u16 ADC_getLastConvertedVal(ADC_ch_t ch)
+u16 ADC_getVolatage_mv(ADC_ch_t ch)
 {
 	return LastConvertedVal[ch];
 }
