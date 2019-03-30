@@ -43,9 +43,12 @@
 
 /*
  * choose DOUBLE_SPEED_MODE
- * ENABLE
- * DISABLE
+ * ENABLE     1
+ * DISABLE    0
  * */
 #define UART_DOUBLE_SPEED			DISABLE
+
+#define UART_RX_BUFFER_SIZE			100
+#define UART_TX_BUFFER_SIZE			100
 
 #endif /* J7_LAB_SRC_MCAL_UART_UART_CFG_H_ */
