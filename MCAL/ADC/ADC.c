@@ -74,9 +74,13 @@ void ADC_startConversion(ADC_ch_t ch)
 		SET_BIT(ADCSRA,6);
 	}
 }
-u16 ADC_getVolatage_mv(ADC_ch_t ch)
+u16 ADC_getVoltage_mv(ADC_ch_t ch)
 {
-	return LastConvertedVal[ch];
+	u16 Voltage_mv;
+	/* Voltage_mv = VOlatge for one step  * noOfSteps */
+	Voltage_mv = LastConvertedVal[ch] * ADC_MAX_VOLTAGE_mv / 1024;
+
+	return Voltage_mv;
 }
 void ADC_enInterrupt(void)
 {

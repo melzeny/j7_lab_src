@@ -7,6 +7,9 @@
 #ifndef _STD_Types_H
 #define _STD_Types_H
 
+#define ENABLE 					1
+#define DISABLE					0
+
 typedef unsigned char u8;
 typedef unsigned short int u16;
 typedef unsigned long int u32;

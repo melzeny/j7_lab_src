@@ -24,10 +24,10 @@ void lab_10_adc(void)
 	while(1)
 	{
 		ADC_startConversion(ADC_ch0);
-		val = ADC_getVolatage_mv(ADC_ch0);
+		val = ADC_getVoltage_mv(ADC_ch0);
 		itoa(val,str_val,10);
+		str_val[4]='\0';
 		LCD_writeString(str_val,0,0);
-
 	}
 
 }
