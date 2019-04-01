@@ -27,8 +27,8 @@
  * */
 #define SPI_LEADING_EDGE_OP_msk			SPI_LEADING_EDGE_SAMPLE_msk
 
-#define SPI_RX_BUFFER_SIZE				100
-#define SPI_TX_BUFFER_SIZE				100
+#define SPI_RX_BUFFER_SIZE				32
+#define SPI_TX_BUFFER_SIZE				32
 /*=================================================
  *
  * MASTER CONFIGURATION

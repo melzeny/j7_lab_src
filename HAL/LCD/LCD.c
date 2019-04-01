@@ -174,8 +174,9 @@ void LCD_writeString(u8 * str,u8 row,u8 col)
 	u8 addr = (row*0x40) + col;
 
 	LCD_writeCmd(0b10000000 | addr);
+	_delay_ms(2);
 	u8 i =0;
-	while(str[i] != '\0')
+	while(str[i] != '\0' && i<16 )
 	{
 		LCD_writeChar(str[i]);
 

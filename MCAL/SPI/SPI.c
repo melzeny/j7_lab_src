@@ -18,10 +18,9 @@
 #define SPI_LEADING_EDGE_SAMPLE_msk         0b00000000
 #define SPI_LEADING_EDGE_SETUP_msk          0b00000100
 
-#define SPI_MODE_MASTER				1
-#define SPI_MODE_SLAVE				0
+#define SPI_MODE_MASTER						1
+#define SPI_MODE_SLAVE						0
 
-#include "../DIO/DIO.h"
 #include "../../LIB/BIT_MATH.h"
 #include "../../LIB/STD_TYPES.h"
 #include "SPI_reg.h"
@@ -66,27 +65,61 @@ void SPI_diInterrupt(void)
 {
 	CLR_BIT(SPCR,7);
 }
-ret_status_t SPI_startComm(u8 TxMsg)
+ret_status_t SPI_startComm(u8 TxMsg[],u8 MsgSizeCpy)
 {
-	SPDR = TxMsg;
-	return OK;
+	ret_status_t ret;
+	u8 i;
+	/*Check if last Tx Buffer has been sent
+	 * Successful
+	 * */
+	if(SPI_Tx_Msg_index == 0)
+	{
+		for(i=0;i<MsgSizeCpy;i++)
+		{
+			SPI_Tx_Buffer[i]=TxMsg[i];
+		}
+		SPI_Tx_Msg_Length=MsgSizeCpy;
+		/*Only Master Can Start Connection*/
+#if SPI_MODE_SELECTOR == SPI_MODE_MASTER
+		SPDR = TxMsg[SPI_Tx_Msg_index++];
+#endif
+		ret = OK;
+	}
+	else
+	{
+		ret =NOT_OK;
+	}
+	return ret;
 }
 void SPI_ReadMsg(u8 RxMsg[],u8* SizePtr)
 {
 	u8 i;
+	* SizePtr = SPI_Rx_Msg_Length;
 	for(i=0;i<SPI_Rx_Msg_Length;i++)
 	{
 		RxMsg[i] = SPI_Rx_Buffer[i];
 	}
-	* SizePtr = SPI_Rx_Msg_Length;
 	SPI_Rx_Msg_Length = 0;
 }
 
 void __vector_12(void) __attribute__((signal,used));
 void __vector_12(void)
 {
-	SPI_Rx_Buffer[SPI_Rx_Msg_Length++] = SPDR;
-	DIO_togglePin(DIO_pin_D7);
+	/*Receive data*/
+	if(SPI_Rx_Msg_Length< SPI_RX_BUFFER_SIZE)
+	{
+		SPI_Rx_Buffer[SPI_Rx_Msg_Length++] = SPDR;
+	}
 
+	/* Transmit Data*/
+	if(SPI_Tx_Msg_index<SPI_Tx_Msg_Length)
+	{
+		SPDR = SPI_Tx_Buffer[SPI_Tx_Msg_index++];
+	}
+	else
+	{
+		SPI_Tx_Msg_Length = 0;
+		SPI_Tx_Msg_index =0;
+	}
 }
 
