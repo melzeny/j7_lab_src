@@ -21,11 +21,17 @@
 #define SPI_MODE_MASTER				1
 #define SPI_MODE_SLAVE				0
 
+#include "../DIO/DIO.h"
 #include "../../LIB/BIT_MATH.h"
 #include "../../LIB/STD_TYPES.h"
 #include "SPI_reg.h"
 #include "SPI_cfg.h"
 #include "SPI.h"
+
+static u8 SPI_Rx_Buffer[SPI_RX_BUFFER_SIZE] = {0},
+SPI_Rx_Msg_Length = 0,
+SPI_Tx_Buffer[SPI_TX_BUFFER_SIZE] ={0},
+SPI_Tx_Msg_Length = 0,SPI_Tx_Msg_index = 0;
 
 void SPI_init(void)
 {
@@ -35,16 +41,19 @@ void SPI_init(void)
 	SPCR &= SPI_LEADING_EDGE_clr_msk;
 	SPCR |= SPI_LEADING_EDGE_SELECTOR_msk;
 
-	SPCR &= SPI_PRESCALER_clr_msk;
-	SPCR |= SPI_PRESCALER_SELECTOR_msk;
-
-	ASSIGN_BIT(SPSR,0,SPI_DOUBLE_SPEED_MODE);
-
 	SPCR &= SPI_LEADING_EDGE_OP_clr_msk;
 	SPCR |= SPI_LEADING_EDGE_OP_msk;
 
 	/*choose master\slave*/
 	ASSIGN_BIT(SPCR,4,SPI_MODE_SELECTOR);
+
+	/*init master clock cfg*/
+#if SPI_MODE_SELECTOR == SPI_MODE_MASTER
+	SPCR &= SPI_PRESCALER_clr_msk;
+	SPCR |= SPI_PRESCALER_SELECTOR_msk;
+
+	ASSIGN_BIT(SPSR,0,SPI_DOUBLE_SPEED_MODE);
+#endif
 
 	/*enable SPI*/
 	SET_BIT(SPCR,6);
@@ -57,11 +66,27 @@ void SPI_diInterrupt(void)
 {
 	CLR_BIT(SPCR,7);
 }
-u8 SPI_startComm(u8 TxMsg)
+ret_status_t SPI_startComm(u8 TxMsg)
 {
 	SPDR = TxMsg;
-	/*wait until transmission is complete*/
-	while(GET_BIT(SPSR,7) == 0);
-	SET_BIT(SPSR,7);
-	return SPDR;
+	return OK;
 }
+void SPI_ReadMsg(u8 RxMsg[],u8* SizePtr)
+{
+	u8 i;
+	for(i=0;i<SPI_Rx_Msg_Length;i++)
+	{
+		RxMsg[i] = SPI_Rx_Buffer[i];
+	}
+	* SizePtr = SPI_Rx_Msg_Length;
+	SPI_Rx_Msg_Length = 0;
+}
+
+void __vector_12(void) __attribute__((signal,used));
+void __vector_12(void)
+{
+	SPI_Rx_Buffer[SPI_Rx_Msg_Length++] = SPDR;
+	DIO_togglePin(DIO_pin_D7);
+
+}
+

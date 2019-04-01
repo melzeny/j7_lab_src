@@ -7,4 +7,14 @@
 #include "../MCAL/EXTI/EXTI.h"
 
 
+void lab_04_exti(void)
+{
 
+
+
+	while(1)
+	{
+
+
+	}
+}

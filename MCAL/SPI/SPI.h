@@ -13,6 +13,7 @@
 void SPI_init(void);
 void SPI_enInterrupt(void);
 void SPI_diInterrupt(void);
-u8 SPI_startComm(u8 TxMsg);
+ret_status_t SPI_startComm(u8 TxMsg);
+void SPI_ReadMsg(u8 RxMsg[],u8* SizePtr);
 
 #endif /* J7_LAB_SRC_MCAL_SPI_SPI_H_ */
