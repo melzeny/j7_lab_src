@@ -21,4 +21,7 @@
 #define TWI_NODE_ADDRESS				0x55
 
 #define TWI_BROADCAST_EN				ENABLE
+#define TWI_TX_BUFFER_SIZE_Byte			32
+#define TWI_RX_BUFFER_SIZE_Byte			32
+
 #endif /* J7_LAB_SRC_MCAL_TWI_TWI_CFG_H_ */

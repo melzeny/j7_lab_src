@@ -59,6 +59,16 @@ typedef enum
 #include "TWI_cfg.h"
 #include "TWI.h"
 
+u8 TWI_SlaWR = 0;
+
+static u8 TWI_Tx_Buffer[TWI_TX_BUFFER_SIZE_Byte]={0},
+		TWI_Tx_Buffer_Index=0,
+		TWI_Tx_Buffer_Size =0;
+
+static u8 TWI_Rx_Buffer[TWI_RX_BUFFER_SIZE_Byte]={0},
+		TWI_Rx_Buffer_Index=0,
+		TWI_Rx_Buffer_Size = 0;
+
 void TWI_init(void)
 {
 	/*init cfg*/
@@ -74,11 +84,11 @@ void TWI_init(void)
 	SET_BIT(TWCR,2);
 }
 
-void TWI_DISCONNECT_NODE(void)
+void TWI_diAck(void)
 {
 	CLR_BIT(TWCR,6);
 }
-void TWI_CONNECT_NODE(void)
+void TWI_enAck(void)
 {
 	SET_BIT(TWCR,6);
 }
@@ -99,18 +109,65 @@ void TWI_diInterrupt(void)
 {
 	CLR_BIT(TWCR,0);
 }
-TWI_sendMsg(u8 SlaveAddress,u8 TxMsg[],u8 SizeCpy)
+ret_status_t TWI_sendMsg(u8 SlaveAddress,u8 TxMsg[],u8 SizeCpy)
 {
+	ret_status_t ret;
+	u8 i=0;
+	if(TWI_Tx_Buffer_Size == 0)
+	{
+		TWI_Tx_Buffer_Size = SizeCpy;
+		TWI_SlaWR = SlaveAddress;
 
-
+		for(i=0;i<SizeCpy;i++)
+		{
+			TWI_Tx_Buffer[i]= TxMsg[i];
+		}
+		TWI_enInterrupt();
+		TWI_START_CONDITION();
+		ret =  OK;
+	}
+	else
+	{
+		ret =  NOT_OK;
+	}
+	return ret;
 }
-TWI_ReceiveMsg(u8 SlaveAddress,u8 RxMsg[],u8* SizePtr)
+void TWI_startReading(u8 SlaveAddress, u8 SizeCpy)
 {
+	if(TWI_Rx_Buffer_Size == 0)
+	{
+		TWI_SlaWR = SlaveAddress;
+		SET_BIT(TWI_SlaWR,0);
+		TWI_Rx_Buffer_Size = SizeCpy;
 
-
+		TWI_enAck();
+		TWI_enInterrupt();
+		TWI_START_CONDITION();
+	}
 }
-void __vector_19(void) __attribute__((signal,used))
-		void __vector_19(void)
+ret_status_t TWI_getlastRxMsg(u8 RxMsg[],u8* SizePtr)
+{
+	u8 i =0;
+	ret_status_t ret;
+	if(TWI_Rx_Buffer_Size != 0)
+	{
+		for(i=0;i<TWI_Rx_Buffer_Index;i++)
+		{
+			RxMsg[i] = TWI_Rx_Buffer[i];
+		}
+		*SizePtr = TWI_Rx_Buffer_Index;
+		TWI_Rx_Buffer_Index = 0;
+		TWI_Rx_Buffer_Size = 0;
+		ret = OK;
+	}
+	else
+	{
+		ret = NOT_OK;
+	}
+	return ret;
+}
+void __vector_19(void) __attribute__((signal,used));
+void __vector_19(void)
 {
 	TWI_status_t CurrentStatus = TWSR & 0b11111100;
 	switch(CurrentStatus)
@@ -119,24 +176,29 @@ void __vector_19(void) __attribute__((signal,used))
 
 		break;
 	case Master_RepeatedStart_Condition :
-
-		break;
 	case Master_Start_Condition :
 		/*TWDR*/
+		TWDR = TWI_SlaWR;
+		CLR_BIT(TWCR,5);
 		break;
 
 	case MasterTx_SlaWbTx_NotAckRx :
-
-		break;
 	case MasterTx_SlaWbTx_AckRx :
-
+		TWDR = TWI_Tx_Buffer[TWI_Tx_Buffer_Index++];
 		break;
 
 	case MasterTx_DataTx_NotAckRx :
-
-		break;
 	case MasterTx_DataTx_AckRx :
-
+		if(TWI_Tx_Buffer_Index < TWI_Tx_Buffer_Size)
+		{
+			TWDR = TWI_Tx_Buffer[TWI_Tx_Buffer_Index++];
+		}
+		else
+		{
+			TWI_Tx_Buffer_Index = 0;
+			TWI_Tx_Buffer_Size = 0;
+			TWI_STOP_CONDITION();
+		}
 		break;
 
 	case Master_ArbitrationLost :
@@ -149,9 +211,17 @@ void __vector_19(void) __attribute__((signal,used))
 
 		break;
 	case MasterRx_DataRx_AckTx :
+		if(TWI_Rx_Buffer_Index<TWI_Rx_Buffer_Size)
+		{
+			TWI_Rx_Buffer[TWI_Rx_Buffer_Index++] = TWDR;
+		}
+		else
+		{
+			TWI_diAck();
+		}
 		break;
 	case MasterRx_DataRx_NotAckTx :
-
+		TWI_STOP_CONDITION();
 		break;
 	case SlaveRx_SlaWbRx_AckTx :
 
@@ -204,6 +274,6 @@ void __vector_19(void) __attribute__((signal,used))
 
 	/*interrupt flag should be cleared
 	 * by writing one to it*/
-	 SET_BIT(TWCR,7);
+	SET_BIT(TWCR,7);
 }
 
